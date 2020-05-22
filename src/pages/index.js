@@ -1,21 +1,40 @@
 import React from "react"
-import { Link } from "gatsby"
-
+import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+const IndexPage = (props) => {
+  return (
+    <Layout>
+      <SEO title="Home" />
+      {props.data.allRecipe.edges.map(edge => (
+        <div key={edge.node.id}>
+          <h2>{edge.node.name} - <small>{edge.node.cook.name}</small></h2>
+          <div>{edge.node.summary}</div>
+          <div>{edge.node.link}</div>
+          <Link to={`/recipe/${edge.node.id}`}>Comment</Link>
+        </div>
+      ))}
+    </Layout>
+  )
+}
+
+export const query = graphql`
+  {
+    allRecipe {
+      edges {
+        node {
+          id
+          link
+          name
+          summary
+            cook {
+              name
+            }
+        }
+      }
+    }
+  }
+`;
 
 export default IndexPage
