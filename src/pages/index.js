@@ -48,6 +48,38 @@ const AllRecipes = styled.section`
             color: white;
         }
     }
+    .image {
+        max-width: 360px;
+        img{
+          max-width: 360px;
+        }
+    }
+    @media (min-width: 776px){
+      .card {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        box-shadow: 2px 2px 6px 0px rgba(142,142,142,1);
+        border: none;
+        border-radius: 4px;
+        outline: none;
+        margin-bottom: 2rem;
+        background: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1.5rem;
+      }
+      .image {
+        max-width: 200px;
+        img{
+          max-width: 200px;
+        }
+      }
+    }
 `;
 
 const IndexPage = (props) => {
@@ -57,12 +89,15 @@ const IndexPage = (props) => {
       <AllRecipes>
         {props.data.allRecipe.edges.map(edge => (
           <article className="card" key={edge.node.id}>
-          <div className="info">
-            <h2>{edge.node.name}</h2>
-            <h5>{edge.node.cook.name}</h5>
-            <p>{edge.node.summary}</p>
-            <Link to={`/recipe/${edge.node.id}`} className="link">read more</Link>
-          </div>
+            <div className="image">
+                <img src={edge.node.imageUrl} alt="recipe image" />
+            </div>
+            <div className="info">
+              <h2>{edge.node.name}</h2>
+              <h5>{edge.node.cook.name}</h5>
+              <p>{edge.node.summary}</p>
+              <Link to={`/recipe/${edge.node.id}`} className="link">read more</Link>
+            </div>
           </article>
         ))}
       </AllRecipes>
@@ -77,6 +112,7 @@ export const query = graphql`
         node {
           id
           link
+          imageUrl
           name
           summary
             cook {

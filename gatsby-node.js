@@ -12,6 +12,7 @@ exports.createPages = ({graphql, actions}) => {
                 id
                 link
                 name
+                imageUrl
                 summary
                     cook {
                     name

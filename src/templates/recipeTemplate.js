@@ -47,6 +47,9 @@ const RecipeItemWrapper = styled.section`
         margin: 0.95em 0 1.2em;
         padding: 0.2em;
     }
+    img{
+        max-width: 400px;
+    }
 `;
 
 
@@ -57,6 +60,7 @@ const RecipeTemplate = ({ pageContext }) => {
             <div className="info">
                 <h1>{pageContext.name}</h1>
                 <h4>{pageContext.cook.name}</h4>
+                <img src={pageContext.imageUrl} alt="recipe image" />
                 <p>{pageContext.summary}</p>
                 <a href={pageContext.link} target="_blank" rel="noopener noreferrer" className="link">
                     Youtube
