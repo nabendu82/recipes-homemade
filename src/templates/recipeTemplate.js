@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { graphql, Link } from "gatsby"
 import Image from "gatsby-image";
+import { Disqus } from "gatsby-plugin-disqus";
 
 const RecipeItemWrapper = styled.section`
     width: 100vw;
@@ -52,6 +53,14 @@ const RecipeItemWrapper = styled.section`
 
 
 const RecipeTemplate = ({ data }) => {
+    const url = "https://recipes-homemade.netlify.app/recipe/";
+    const blogIdentity = data.recipe.id;
+    let disqusConfig = {
+        url: `${url}${blogIdentity}`,
+        identifier: blogIdentity,
+        title: data.recipe.name
+    }
+
     return (
         <RecipeItemWrapper>
             <Link to="/" className="link">back to all recipes</Link>
@@ -60,10 +69,13 @@ const RecipeTemplate = ({ data }) => {
                 <h4>{data.recipe.cook.name}</h4>
                 <Image fluid={data.recipe.localImage.childImageSharp.fluid} />
                 <p>{data.recipe.summary}</p>
-                <a href={data.recipe.link} target="_blank" rel="noopener noreferrer" className="link">
-                    Youtube
-                </a>
+                {data.recipe.link &&
+                    (<a href={data.recipe.link} target="_blank" rel="noopener noreferrer" className="link">
+                        Youtube
+                    </a>)
+                }
             </div>
+            <Disqus config={disqusConfig} />
         </RecipeItemWrapper>
     )
 }

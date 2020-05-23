@@ -76,6 +76,10 @@ const AllRecipes = styled.section`
 `;
 
 const IndexPage = (props) => {
+  const summarySlice = (str) => {
+    return str.slice(0,100) + "...";
+  }
+
   return (
     <Layout>
       <SEO title="Home" />
@@ -88,7 +92,7 @@ const IndexPage = (props) => {
             <div className="info">
               <h2>{edge.node.name}</h2>
               <h5>{edge.node.cook.name}</h5>
-              <p>{edge.node.summary}</p>
+              <p>{edge.node.summary && summarySlice(edge.node.summary)}</p>
               <Link to={`/recipe/${edge.node.id}`} className="link">read more</Link>
             </div>
           </article>

@@ -75,6 +75,12 @@ module.exports = {
         nodeType: 'Recipe',
         imagePath: 'imageUrl',
       },
+    },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+          shortname: `https-recipes-homemade-netlify-app`
+      }
     }
   ],
 }
