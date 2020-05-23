@@ -9,14 +9,7 @@ exports.createPages = ({graphql, actions}) => {
         allRecipe {
             edges {
                 node {
-                id
-                link
-                name
-                imageUrl
-                summary
-                    cook {
-                    name
-                    }
+                    id
                 }
             }
         }
@@ -29,7 +22,7 @@ exports.createPages = ({graphql, actions}) => {
             createPage({
                 path: `/recipe/${recipe.node.id}`,
                 component: recipeTemplate,
-                context: recipe.node
+                context: { recipeId: recipe.node.id }
             })
         });
     })

@@ -3,6 +3,8 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from 'styled-components';
+import Image from "gatsby-image";
+
 const AllRecipes = styled.section`
   padding: 1rem 0;
   width: 85vw;
@@ -48,12 +50,6 @@ const AllRecipes = styled.section`
             color: white;
         }
     }
-    .image {
-        max-width: 360px;
-        img{
-          max-width: 360px;
-        }
-    }
     @media (min-width: 776px){
       .card {
         display: grid;
@@ -73,11 +69,8 @@ const AllRecipes = styled.section`
         align-items: center;
         padding: 0 1.5rem;
       }
-      .image {
-        max-width: 200px;
-        img{
-          max-width: 200px;
-        }
+      .image > div {
+        height: 250px;
       }
     }
 `;
@@ -90,7 +83,7 @@ const IndexPage = (props) => {
         {props.data.allRecipe.edges.map(edge => (
           <article className="card" key={edge.node.id}>
             <div className="image">
-                <img src={edge.node.imageUrl} alt="recipe image" />
+                <Image fluid={edge.node.localImage.childImageSharp.fluid} />
             </div>
             <div className="info">
               <h2>{edge.node.name}</h2>
@@ -112,7 +105,13 @@ export const query = graphql`
         node {
           id
           link
-          imageUrl
+          localImage {
+            childImageSharp{
+              fluid{
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
           name
           summary
             cook {
